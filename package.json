@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/enzyme-to-json": "^1.5.4",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.12",
     "@types/react": "^18.0.28",
@@ -44,5 +45,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.0",
+    "@cfaester/enzyme-adapter-react-18": "^0.6.0",
+    "@types/enzyme": "^3.10.12",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "babel-jest": "^29.4.3",
+    "enzyme-to-json": "^3.6.2",
+    "react-test-renderer": "^18.2.0",
+    "ts-jest": "^29.0.5"
   }
 }

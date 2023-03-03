@@ -1,5 +1,5 @@
-import { Box, Button, Text } from "@chakra-ui/react";
-import axios ,{AxiosResponse}from "axios";
+import { Box, Text } from "@chakra-ui/react";
+
 
 import React, { Component } from "react"
 import Home from "./Components/Home";
@@ -33,8 +33,13 @@ class App extends Component<{}, AppState> {
     this.setState({ isModalOpen: false });
   };
 addingtodo = (payload: Todoobject) => {
-
-    axios.post("http://localhost:8080/todos", payload).then((r) => {
+  fetch('http://localhost:8080/todos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  }).then((r) => {
 
     }).then(()=>{
       this.gettodos()
@@ -43,7 +48,7 @@ addingtodo = (payload: Todoobject) => {
     })
   }
   gettodos = () => {
-    axios.get("http://localhost:8080/todos").then((r: AxiosResponse) => {
+   fetch("http://localhost:8080/todos").then((r: any) => {
       this.setState({ todos: r.data })
     }).catch((err) => console.log(err))
   }
@@ -52,10 +57,11 @@ addingtodo = (payload: Todoobject) => {
 
     return (
       <div>
+
         <Box width={"100%"} backgroundColor={"teal.400"} height={"70px"} textAlign={"center"}>
           <Text >Todo App</Text>
 
-          <Button onClick={this.handleOpenModal} float={"right"}>Create Todo</Button>
+          <button onClick={this.handleOpenModal} >Create Todo</button>
 
           <Todo
             gettodo={this.addingtodo}

@@ -1,13 +1,13 @@
 import React, { Component, ChangeEventHandler } from 'react';
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Input, Text, Box } from '@chakra-ui/react';
 
-interface TodoArgument{
-    text: string; 
-    description: string ;
-    status: boolean 
+interface TodoArgument {
+    text: string;
+    description: string;
+    status: boolean
 }
 interface MyModalProps {
-    gettodo: (payload:TodoArgument) => void;
+    gettodo: (payload: TodoArgument) => void;
 
     isOpen: boolean;
     onClose: () => void;
@@ -42,11 +42,11 @@ export default class Todo extends Component<MyModalProps, AppState>{
 
         const payload = { text: this.state.text, description: this.state.description, status: false }
         this.props.gettodo(payload)
-        
+
         this.setState({ text: "", description: "", popover: false })
 
     }
-    
+
     render() {
 
         const { isOpen, onClose } = this.props;
@@ -65,7 +65,7 @@ export default class Todo extends Component<MyModalProps, AppState>{
                         <ModalCloseButton />
                         <ModalBody>
 
-                            <Input placeholder='enter title' onChange={this.handelchange} name="text"></Input>
+                            <Input placeholder='enter title' onChange={this.handelchange} name="text" value={this.state.text}></Input>
                             <Input placeholder='enter description' onChange={this.handelchange} name="description"></Input>
                         </ModalBody>
                         <ModalFooter>

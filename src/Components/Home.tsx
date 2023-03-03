@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, Component } from 'react'
-import axios, { AxiosResponse } from "axios"
+
 import { Box, Button, Checkbox, Input, Text } from '@chakra-ui/react'
 import {
   Modal,
@@ -19,14 +19,14 @@ interface AppState {
   edittext: string;
   editdes: string;
   id: any;
-  isPopover:true|false;
-  deleteid:null|number
-  isModaldeletOpen:boolean
+  isPopover: true | false;
+  deleteid: null | number
+  isModaldeletOpen: boolean
 }
 export default class Home extends Component<Proops, AppState> {
   constructor(props: Proops) {
     super(props)
-    this.state = { isModalOpen: false, edittext: "", editdes: "", id: null,isPopover:false,deleteid:null , isModaldeletOpen: false}
+    this.state = { isModalOpen: false, edittext: "", editdes: "", id: null, isPopover: false, deleteid: null, isModaldeletOpen: false }
   }
 
   componentDidMount(): void {
@@ -53,19 +53,25 @@ export default class Home extends Component<Proops, AppState> {
         return e
       }
     })
-
     const payload = { status: !todostatus[0].status }
-    axios.patch(`http://localhost:8080/todos/${id}`, payload).then((r: AxiosResponse) => {
+    fetch(`http://localhost:8080/todos/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
 
+      },
+      body: JSON.stringify(payload)
     }).then(() => {
       this.props.gettodos()
     }).catch((err) => {
       console.log(err)
     })
+
+
   }
   handeldelte = (id: number) => {
-    this.setState({deleteid:id,isModaldeletOpen:true})
-    
+    this.setState({ deleteid: id, isModaldeletOpen: true })
+
   }
   handeledit: ChangeEventHandler<HTMLInputElement> = (e) => {
 
@@ -73,11 +79,16 @@ export default class Home extends Component<Proops, AppState> {
   }
   handelpatch = (id: number) => {
 
+
     const payload = { text: this.state.edittext, description: this.state.editdes }
-    console.log(id)
 
-    axios.patch(`http://localhost:8080/todos/${this.state.id}`, payload).then((r) => {
+    fetch(`http://localhost:8080/todos/${this.state.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
 
+      },
+      body: JSON.stringify(payload)
     }).then(() => {
       this.props.gettodos()
     }).catch((err) => {
@@ -85,18 +96,21 @@ export default class Home extends Component<Proops, AppState> {
     })
     this.setState({ isModalOpen: false });
   }
-  handledeletCloseModal=()=>{
+  handledeletCloseModal = () => {
     this.setState({ isModaldeletOpen: false });
   }
-  handeldeletconfimed=()=>{
-    axios.delete(`http://localhost:8080/todos/${this.state.deleteid}`).then((r: AxiosResponse) => {
+  handeldeletconfimed = () => {
 
-  }).then(() => {
-    this.props.gettodos()
-  }).catch((err) => {
-    console.log(err)
-  })
-  this.setState({ isModaldeletOpen: false ,deleteid:null});
+
+    fetch(`http://localhost:8080/todos/${this.state.deleteid}`, {
+      method: 'DELETE',
+
+    }).then(() => {
+      this.props.gettodos()
+    }).catch((err) => {
+      console.log(err)
+    })
+    this.setState({ isModaldeletOpen: false, deleteid: null });
   }
   render() {
     const todos = this.props.todos
@@ -108,7 +122,7 @@ export default class Home extends Component<Proops, AppState> {
         <Text as={"b"} >Todo Item</Text>
         <Box height={"700px"} mt={"10px"} width={"80%"} margin={"auto"} >
           {todos?.map((item: any) => (
-            <Box display={"flex"} justifyContent={"space-evenly"} width={"100%"} border={"1px solid teal"} key={item.id} mt={"10px"}>
+            <Box display={"flex"} justifyContent={"space-evenly"} width={"100%"} border={"1px solid teal"} key={item.id} mt={"10px"} >
               <Box >
                 <Text as={item.status ? "s" : "b"} >Title: {item.text}</Text>
                 <br />
@@ -117,24 +131,24 @@ export default class Home extends Component<Proops, AppState> {
               </Box>
               <Box display={"flex"} width={"40%"} margin={"auto"} justifyContent={'space-between'}>
 
-                <Button onClick={() => this.handeldelte(item.id)}>Delete</Button>
-                
-                
-                
+                <Button onClick={() => this.handeldelte(item.id)} data-testid="deletebutton">Delete</Button>
+
+
+
                 <Modal isOpen={this.state.isModaldeletOpen} onClose={this.handledeletCloseModal}>
                   <ModalOverlay />
                   <ModalContent>
                     <ModalHeader>Edit Todo</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                    <Text>Are You Want to Delete</Text>
+                      <Text>Are You Want to Delete</Text>
                     </ModalBody>
 
                     <ModalFooter>
                       <Button colorScheme='blue' mr={3} onClick={this.handledeletCloseModal}>
                         Cancel
                       </Button>
-                      <Button variant='ghost'  onClick={() => this.handeldeletconfimed()}>Yes</Button>
+                      <Button variant='ghost' onClick={() => this.handeldeletconfimed()}>Yes</Button>
                     </ModalFooter>
                   </ModalContent>
                 </Modal>
@@ -152,8 +166,8 @@ export default class Home extends Component<Proops, AppState> {
 
 
 
-                
-                
+
+
                 <Button onClick={() => this.handleOpenModal(item.text, item.description, item.id)} isDisabled={item.status}>Edit</Button>
 
 
