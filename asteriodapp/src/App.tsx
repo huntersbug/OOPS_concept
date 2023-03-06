@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-import Asteriod from "./Components/Asteriod";
-import Home from "./Components/Home";
+import  { Component } from "react";
+import { useNavigate } from "react-router-dom";
+import AllRoutes from "./Components/AllRoutes";
+
 interface Appstate {
   Asteriodid: string;
 }
@@ -15,20 +15,14 @@ class App extends Component<Appropos, Appstate> {
   }
   handelget = (e: string) => {
     this.setState({ Asteriodid: e });
-
+   
     this.props.navigator("/asteriod");
   };
 
   render() {
     return (
       <>
-        <Routes>
-          <Route path="/" element={<Home handelget={this.handelget} />}></Route>
-          <Route
-            path="/asteriod"
-            element={<Asteriod Asteriodid={this.state.Asteriodid} />}
-          ></Route>
-        </Routes>
+     <AllRoutes handelget={this.handelget} Asteriodid={this.state.Asteriodid} />
       </>
     );
   }

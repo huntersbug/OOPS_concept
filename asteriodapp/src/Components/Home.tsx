@@ -61,7 +61,7 @@ export default class Home extends Component<Appsprops> {
 
         <Input
           placeholder={"Enter Asteriod Id"}
-          disabled={this.state.isspinner || this.state.text.length === 7}
+          disabled={this.state.isspinner }
           width={"90%"}
           mt={"10px"}
           onChange={this.handelchange}

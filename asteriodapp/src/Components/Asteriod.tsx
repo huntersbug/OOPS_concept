@@ -10,7 +10,6 @@ interface AsteriodState {
   is_potentially_hazardous_asteroid: string;
   nasa_jpl_url: string;
   name: string;
-  no_item: number;
 }
 export default class Asteriod extends Component<AsteriodProps, AsteriodState> {
   constructor(props: AsteriodProps) {
@@ -20,7 +19,6 @@ export default class Asteriod extends Component<AsteriodProps, AsteriodState> {
       is_potentially_hazardous_asteroid: "",
       nasa_jpl_url: "",
       name: "",
-      no_item: 3,
     };
   }
 
@@ -34,7 +32,7 @@ export default class Asteriod extends Component<AsteriodProps, AsteriodState> {
       .then((res) => {
         this.setState({
           is_potentially_hazardous_asteroid:
-            res.is_potentially_hazardous_asteroid,
+          res.is_potentially_hazardous_asteroid,
           nasa_jpl_url: res.nasa_jpl_url,
           name: res.name,
         });
@@ -57,10 +55,11 @@ export default class Asteriod extends Component<AsteriodProps, AsteriodState> {
         <Button
           textAlign={"center"}
           mt={"20px"}
-          padding={"10px"}
+          padding={"20px"}
           justifyContent={"center"}
+          ml={"50px"}
         >
-          <Link href="/">Go Back Home Page</Link>
+          <Link href="/" textDecoration={"none"}>Go Back Home Page</Link>
         </Button>
 
         <Box
