@@ -23,7 +23,7 @@ export default class Home extends Component<Appsprops> {
   handelsubmit = () => {
     this.props.handelget(this.state.text);
   };
-  handelrandom = () => {
+    handelrandom = () => {
     this.setState({ isspinner: true });
     fetch(
       "https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=Qdk55jfPtMZ8n6Dek7SPPx2FXkY2O1rTql9qu8an"
@@ -106,3 +106,4 @@ export default class Home extends Component<Appsprops> {
     );
   }
 }
+
