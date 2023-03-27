@@ -1,20 +1,22 @@
 
 import { Box } from '@chakra-ui/react'
 import React, { Component } from 'react'
+import { getcountry } from './Components/api'
 import Countrytabel from './Components/Countrytabel'
 import Navbar from './Components/Navbar'
-interface Appstate{
-countryinfo:any[]
+interface Appstate {
+  countryinfo: any[]
 }
-export default class App extends Component<{},Appstate> {
-state={countryinfo:[]};
-  handelget=(e:string)=>{
+export default class App extends Component<{}, Appstate> {
+  state = { countryinfo: [] };
+  handelget = (e: string) => {
+    getcountry(e).then((res) => {
+      console.log(res)
+      this.setState({ countryinfo: res })
+    }).catch((err) => {
 
-fetch(`https://restcountries.com/v3.1/name/${e}`).then((res)=>{
-return res.json()
-}).then((res)=>{
-this.setState({countryinfo:res})
-})
+    })
+
   }
   render() {
 
@@ -22,8 +24,8 @@ this.setState({countryinfo:res})
       <Box textAlign={"center"}>
 
 
-        <Navbar handelget={this.handelget}/>
-        <Countrytabel info={this.state.countryinfo}/>
+        <Navbar handelget={this.handelget} />
+        <Countrytabel info={this.state.countryinfo} />
       </Box>
     )
   }

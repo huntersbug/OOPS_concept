@@ -11,6 +11,8 @@ import {
     Image,
     Text,
 } from '@chakra-ui/react'
+
+
 export default class Tempt extends Component<any>{
     constructor(props: any) {
         super(props)
@@ -21,7 +23,8 @@ export default class Tempt extends Component<any>{
 
 
     render() {
-        const { isClose, isOpen, image, condition, temp } = this.props
+        const { isClose, isOpen, image, condition, temp ,precip
+        } = this.props
 
 
 
@@ -39,6 +42,8 @@ export default class Tempt extends Component<any>{
                             <Image src={image} />
                             <Text>Temperature:{temp} </Text>
                             <Text>Wheather Description:{condition}</Text>
+                            <Text>Precip:{precip
+}</Text>
                         </ModalBody>
 
                         <ModalFooter>

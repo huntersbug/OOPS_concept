@@ -48,8 +48,12 @@ addingtodo = (payload: Todoobject) => {
     })
   }
   gettodos = () => {
-   fetch("https://api-checking.onrender.com/todos").then((r: any) => {
-      this.setState({ todos: r.data })
+   fetch("https://api-checking.onrender.com/todos").then((res: any) => {
+   return res.json()
+     
+    }).then((res)=>{
+      
+      this.setState({ todos: res })
     }).catch((err) => console.log(err))
   }
   render() {

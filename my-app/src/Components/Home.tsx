@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler, Component } from 'react'
-
+import React, { Component, createRef, RefObject, ChangeEventHandler } from "react";
+import "../App.css"
 import { Box, Button, Checkbox, Input, Text } from '@chakra-ui/react'
 import {
   Modal,
@@ -24,16 +24,30 @@ interface AppState {
   isModaldeletOpen: boolean
 }
 export default class Home extends Component<Proops, AppState> {
+  private containerRef: RefObject<HTMLDivElement>;
   constructor(props: Proops) {
     super(props)
     this.state = { isModalOpen: false, edittext: "", editdes: "", id: null, isPopover: false, deleteid: null, isModaldeletOpen: false }
+    this.containerRef = createRef<HTMLDivElement>();
   }
 
   componentDidMount(): void {
     this.props.gettodos()
   }
-
-
+  componentDidUpdate(prevProps: Proops, prevState: AppState) {
+  
+    if (prevProps.todos.length !== this.props.todos.length) {
+this.scrolldown()
+    }
+  }
+  scrolldown = () => {
+    const container = this.containerRef.current;
+   
+    if (container) {
+      console.log(container.scrollHeight)
+      container.scrollTop = container.scrollHeight;
+    }
+  }
   handleOpenModal = (text: string, des: string, id: number) => {
 
     this.setState({ isModalOpen: true, editdes: des, edittext: text, id: id });
@@ -117,11 +131,15 @@ export default class Home extends Component<Proops, AppState> {
 
 
     return (
-      <Box>
+      <div className='conatiner' ref={this.containerRef}>
+
+
+
 
         <Text as={"b"} >Todo Item</Text>
-        <Box height={"700px"} mt={"10px"} width={"80%"} margin={"auto"} >
+        <Box mt={"10px"} width={"80%"} margin={"auto"} >
           {todos?.map((item: any) => (
+
             <Box display={"flex"} justifyContent={"space-evenly"} width={"100%"} border={"1px solid teal"} key={item.id} mt={"10px"} >
               <Box >
                 <Text as={item.status ? "s" : "b"} >Title: {item.text}</Text>
@@ -202,13 +220,15 @@ export default class Home extends Component<Proops, AppState> {
                 <Checkbox defaultChecked={item.status} onChange={() => this.checkedchangebox(item.id)} size='lg' colorScheme={"telegram"} />
               </Box>
             </Box>
+
           ))}
 
 
         </Box>
 
 
-      </Box>
+
+      </div>
     )
   }
 }
