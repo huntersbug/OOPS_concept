@@ -1,0 +1,27 @@
+.mylink {
+  color: black; /* Set default link color */
+}
+.mylink {
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+}
+.mylink:hover {
+  font-size: 30px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mylink:hover,
+.mylink:active,
+.mylink:focus {
+  color: teal;
+  outline: none;
+}
+.imageitem{
+height: 80%;
+width: 150px;
+}
+.imageitem:hover {
+height: 90%;
+width: 200px;
+}
