@@ -15,10 +15,10 @@ describe("check button", () => {
             handelchangepage={handelchangepage}
             handeldecre={handeldecre} />)
     })
-    it("button present in pagination", async () => {
+  test("button present in pagination",  () => {
         expect(wrapper.find("Button")).toHaveLength(4)
     });
-    it("button present in pagination", async () => {
+    test("button present in pagination", async () => {
         let prevbutton = wrapper.find("Button").filterWhere((btn: any) => btn.text() === "Prev")
 
         expect(prevbutton).toHaveLength(1)

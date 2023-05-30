@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+
 import App from '../App';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
@@ -71,3 +71,4 @@ describe("button Enzyme test case", () => {
 
   })
 })
+
